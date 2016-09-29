@@ -20,4 +20,8 @@ class Question < ActiveRecord::Base
   foreign_key: :question_id,
   class_name: :AnswerChoice
 
+  # def results
+  #
+  # end
+
 end
