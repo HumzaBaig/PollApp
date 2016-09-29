@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160929204537) do
+ActiveRecord::Schema.define(version: 20160929221715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,10 +24,11 @@ ActiveRecord::Schema.define(version: 20160929204537) do
   add_index "answer_choices", ["question_id"], name: "index_answer_choices_on_question_id", using: :btree
 
   create_table "polls", force: :cascade do |t|
-    t.string "title",  null: false
-    t.string "author", null: false
+    t.string  "title",     null: false
+    t.integer "author_id", null: false
   end
 
+  add_index "polls", ["author_id"], name: "index_polls_on_author_id", using: :btree
   add_index "polls", ["title"], name: "index_polls_on_title", unique: true, using: :btree
 
   create_table "questions", force: :cascade do |t|
@@ -38,11 +39,10 @@ ActiveRecord::Schema.define(version: 20160929204537) do
   add_index "questions", ["poll_id"], name: "index_questions_on_poll_id", using: :btree
 
   create_table "responses", force: :cascade do |t|
-    t.integer "user_id",     null: false
-    t.integer "question_id", null: false
+    t.integer "user_id",          null: false
+    t.integer "answer_choice_id", null: false
   end
 
-  add_index "responses", ["question_id"], name: "index_responses_on_question_id", using: :btree
   add_index "responses", ["user_id"], name: "index_responses_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
